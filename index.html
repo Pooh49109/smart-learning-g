@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Anniversary! ❤️</title>
+  <title>Happy 4th Anniversary! ❤️</title>
+  <!-- Library สำหรับเอฟเฟกต์พลุกระดาษ Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -12,24 +14,27 @@
     }
     body {
       background: linear-gradient(135deg, #ffe6eb 0%, #def3f8 100%);
-      font-family: 'Tahoma', sans-serif;
+      font-family: 'Tahoma', 'Segoe UI', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow-x: hidden;
+      padding: 20px 10px;
     }
     .container {
       text-align: center;
       position: relative;
-      padding: 20px;
+      width: 100%;
+      max-width: 450px;
     }
     h1 {
       color: #ff4b72;
       margin-bottom: 20px;
-      font-size: 24px;
+      font-size: 26px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      transition: all 0.5s ease;
     }
     /* Gift Box Styling */
     .gift-container {
@@ -37,6 +42,7 @@
       display: inline-block;
       position: relative;
       transition: transform 0.3s;
+      margin-top: 30px;
     }
     .gift-container:hover {
       transform: scale(1.05);
@@ -45,15 +51,15 @@
       width: 140px;
       height: 120px;
       background: #ff5e7e;
-      border-radius: 10px;
+      border-radius: 12px;
       position: relative;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 25px rgba(255, 75, 114, 0.3);
       margin: 40px auto 0;
     }
     .gift-box::before { /* Vertical Ribbon */
       content: '';
       position: absolute;
-      width: 25px;
+      width: 26px;
       height: 100%;
       background: #ffd700;
       left: 50%;
@@ -62,7 +68,7 @@
     .gift-box::after { /* Horizontal Ribbon */
       content: '';
       position: absolute;
-      height: 25px;
+      height: 26px;
       width: 100%;
       background: #ffd700;
       top: 50%;
@@ -77,13 +83,13 @@
       top: -30px;
       left: -8px;
       z-index: 2;
-      transition: all 0.6s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .gift-lid::before {
       content: '';
       position: absolute;
-      width: 25px;
+      width: 26px;
       height: 100%;
       background: #ffd700;
       left: 50%;
@@ -91,18 +97,17 @@
     }
     /* Lid open animation */
     .gift-container.open .gift-lid {
-      transform: translateY(-120px) rotate(-15deg);
+      transform: translateY(-130px) rotate(-20deg);
       opacity: 0;
     }
     /* Letter Card */
     .card {
       background: #ffffff;
-      width: 90%;
-      max-width: 400px;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-      margin: 20px auto 0;
+      width: 100%;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(255, 105, 135, 0.2);
+      margin-top: 10px;
       display: none;
       opacity: 0;
       transform: translateY(30px);
@@ -116,33 +121,56 @@
       transform: translateY(0);
     }
     .card p {
-      color: #555;
+      color: #4a4a4a;
       line-height: 1.8;
       font-size: 16px;
       white-space: pre-line;
       text-align: left;
+      word-break: break-word;
     }
     .heart-icon {
-      font-size: 30px;
-      margin-bottom: 10px;
+      font-size: 36px;
+      margin-bottom: 15px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    .tap-hint {
+      color: #888;
+      font-size: 14px;
+      margin-top: 15px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1 id="title">Gift for Kanomchan</h1>
+    <h1 id="title">Gift for Kanomchan 🎁</h1>
     
     <div class="gift-container" id="gift" onclick="openGift()">
       <div class="gift-lid"></div>
       <div class="gift-box"></div>
+      <p class="tap-hint" id="hint">แตะที่กล่องเพื่อเปิดของขวัญ ✨</p>
     </div>
 
     <div class="card" id="letterCard">
       <div class="heart-icon">💖</div>
-      <p id="letterContent">
-        (ใส่ข้อความจดหมายของคุณตรงนี้ได้เลยนะครับ)
-      </p>
+      <p id="letterContent">Hello world เค้าภูน้า แกหนม ครบรอบ 4 เดือนแย้วว เย้ย้ย้ย้ย้
+
+รอบที่แล้วเค้าทำเป็นจดหมายของจริงไปให้เท่มะ รอบนี้เค้าทำเป็นจดหมายในเว็ปให้เลออ เพราะเรียน Github มาระ หึหึหหึหึหึหึ เกริ่นได้เบียวมาก😈
+
+คือ 4 เดือนละไวมาก เค้างอนแกไปร้อยล้านรอบ หายงอนไปร้อยล้านรอบเหมือนกัน เค้าก้ไม่ค่อยมีไรจาบอกหรอก ก้อยากให้แกคบกับเค้านานๆ แกไม่โอเคอาไรก้บอกกันนา เค้าอยากขอบคุณแกที่ทนเค้าได้ถึงทุกวันนี้
+
+แค่นี้น้า จุ้บจุ้บบบ 💋✨</p>
     </div>
   </div>
 
@@ -154,9 +182,16 @@
 
       gift.classList.add('open');
       
+      // ยิงพลุกระดาษ Confetti
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
       setTimeout(() => {
         gift.style.display = 'none';
-        title.innerText = 'Happy Anniversary! 🎉';
+        title.innerText = 'Happy 4th Anniversary! 🎉';
         card.classList.add('show');
       }, 600);
     }
