@@ -8,7 +8,6 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      /* ปรับสีพื้นหลังให้เข้ากับธีมขนมชั้น */
       background: linear-gradient(135deg, #e8f5e9 0%, #fffde7 100%);
       font-family: 'Tahoma', sans-serif;
       min-height: 100vh;
@@ -21,7 +20,7 @@
     .container { text-align: center; width: 100%; max-width: 450px; }
     h1 { color: #2e7d32; margin-bottom: 20px; font-size: 26px; }
 
-    /* กล่องของขวัญธีมขนมชั้น */
+    /* กล่องของขวัญธีมขนมชั้น (เอาสีเหลืองออก) */
     .gift-container {
       cursor: pointer;
       display: inline-block;
@@ -34,7 +33,7 @@
     .gift-box {
       width: 140px;
       height: 120px;
-      /* สร้างลายชั้นขนมชั้นด้วย linear-gradient */
+      /* ลายชั้นขนมชั้น */
       background: repeating-linear-gradient(
         to bottom,
         #a5d6a7,
@@ -48,14 +47,10 @@
       margin: 0 auto;
     }
 
-    .gift-box::before, .gift-box::after { content: ''; position: absolute; background: #ffd700; }
-    .gift-box::before { width: 26px; height: 100%; left: 50%; transform: translateX(-50%); }
-    .gift-box::after { height: 26px; width: 100%; top: 50%; transform: translateY(-50%); }
-
     .gift-lid {
       width: 156px;
       height: 35px;
-      background: #388e3c; /* เขียวเข้มขึ้นตรงฝา */
+      background: #388e3c;
       border-radius: 8px;
       position: absolute;
       top: -30px;
@@ -63,10 +58,6 @@
       z-index: 2;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    .gift-lid::before {
-      content: ''; position: absolute; width: 26px; height: 100%; background: #ffd700;
-      left: 50%; transform: translateX(-50%);
     }
 
     .gift-container.open .gift-lid { transform: translateY(-130px) rotate(-20deg); opacity: 0; }
@@ -115,7 +106,6 @@
       setTimeout(() => {
         gift.style.display = 'none';
         title.innerText = 'Happy 4th Anniversary! 🎉';
-        card.classList.show = true;
         card.style.display = 'block';
         setTimeout(() => card.classList.add('show'), 50);
       }, 600);
