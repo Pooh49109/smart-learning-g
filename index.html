@@ -4,49 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy 4th Anniversary! ❤️</title>
-  <!-- Library สำหรับเอฟเฟกต์พลุกระดาษ Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: linear-gradient(135deg, #ffe6eb 0%, #def3f8 100%);
-      font-family: 'Tahoma', 'Segoe UI', sans-serif;
+      font-family: 'Tahoma', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow-x: hidden;
       padding: 20px 10px;
     }
-    .container {
-      text-align: center;
-      position: relative;
-      width: 100%;
-      max-width: 450px;
-    }
-    h1 {
-      color: #ff4b72;
-      margin-bottom: 20px;
-      font-size: 26px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-      transition: all 0.5s ease;
-    }
-    /* Gift Box Styling */
+    .container { text-align: center; width: 100%; max-width: 450px; }
+    h1 { color: #ff4b72; margin-bottom: 20px; font-size: 26px; }
+
+    /* ปรับปรุงโครงสร้างให้ฝากล่องปิดสนิท */
     .gift-container {
       cursor: pointer;
       display: inline-block;
       position: relative;
+      margin-top: 50px;
       transition: transform 0.3s;
-      margin-top: 30px;
     }
-    .gift-container:hover {
-      transform: scale(1.05);
-    }
+    .gift-container:hover { transform: scale(1.05); }
+
     .gift-box {
       width: 140px;
       height: 120px;
@@ -54,101 +37,42 @@
       border-radius: 12px;
       position: relative;
       box-shadow: 0 12px 25px rgba(255, 75, 114, 0.3);
-      margin: 40px auto 0;
+      margin: 0 auto; /* เอา margin-top ออกเพื่อให้ lid วางสนิท */
     }
-    .gift-box::before { /* Vertical Ribbon */
-      content: '';
-      position: absolute;
-      width: 26px;
-      height: 100%;
-      background: #ffd700;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .gift-box::after { /* Horizontal Ribbon */
-      content: '';
-      position: absolute;
-      height: 26px;
-      width: 100%;
-      background: #ffd700;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+
+    .gift-box::before, .gift-box::after { content: ''; position: absolute; background: #ffd700; }
+    .gift-box::before { width: 26px; height: 100%; left: 50%; transform: translateX(-50%); }
+    .gift-box::after { height: 26px; width: 100%; top: 50%; transform: translateY(-50%); }
+
     .gift-lid {
       width: 156px;
       height: 35px;
       background: #ff4769;
       border-radius: 8px;
       position: absolute;
-      top: -30px;
+      top: -30px; /* ปรับให้พอดีกับด้านบนของกล่อง */
       left: -8px;
       z-index: 2;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .gift-lid::before {
-      content: '';
-      position: absolute;
-      width: 26px;
-      height: 100%;
-      background: #ffd700;
-      left: 50%;
-      transform: translateX(-50%);
+      content: ''; position: absolute; width: 26px; height: 100%; background: #ffd700;
+      left: 50%; transform: translateX(-50%);
     }
-    /* Lid open animation */
-    .gift-container.open .gift-lid {
-      transform: translateY(-130px) rotate(-20deg);
-      opacity: 0;
-    }
-    /* Letter Card */
+
+    .gift-container.open .gift-lid { transform: translateY(-130px) rotate(-20deg); opacity: 0; }
+    
     .card {
-      background: #ffffff;
-      width: 100%;
-      padding: 30px 25px;
-      border-radius: 20px;
+      background: #ffffff; width: 100%; padding: 30px 25px; border-radius: 20px;
       box-shadow: 0 15px 35px rgba(255, 105, 135, 0.2);
-      margin-top: 10px;
-      display: none;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-      position: relative;
-      border: 2px dashed #ffb6c1;
+      margin-top: 30px; display: none; opacity: 0; transform: translateY(30px);
+      transition: all 0.8s ease; border: 2px dashed #ffb6c1;
     }
-    .card.show {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .card p {
-      color: #4a4a4a;
-      line-height: 1.8;
-      font-size: 16px;
-      white-space: pre-line;
-      text-align: left;
-      word-break: break-word;
-    }
-    .heart-icon {
-      font-size: 36px;
-      margin-bottom: 15px;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-    .tap-hint {
-      color: #888;
-      font-size: 14px;
-      margin-top: 15px;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-8px); }
-      60% { transform: translateY(-4px); }
-    }
+    .card.show { display: block; opacity: 1; transform: translateY(0); }
+    .card p { color: #4a4a4a; line-height: 1.8; font-size: 16px; white-space: pre-line; text-align: left; }
+    .heart-icon { font-size: 36px; margin-bottom: 15px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body>
@@ -159,7 +83,6 @@
     <div class="gift-container" id="gift" onclick="openGift()">
       <div class="gift-lid"></div>
       <div class="gift-box"></div>
-      <p class="tap-hint" id="hint">แตะที่กล่องเพื่อเปิดของขวัญ ✨</p>
     </div>
 
     <div class="card" id="letterCard">
@@ -179,16 +102,8 @@
       const gift = document.getElementById('gift');
       const card = document.getElementById('letterCard');
       const title = document.getElementById('title');
-
       gift.classList.add('open');
-      
-      // ยิงพลุกระดาษ Confetti
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       setTimeout(() => {
         gift.style.display = 'none';
         title.innerText = 'Happy 4th Anniversary! 🎉';
