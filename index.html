@@ -20,7 +20,7 @@
     .container { text-align: center; width: 100%; max-width: 450px; }
     h1 { color: #2e7d32; margin-bottom: 20px; font-size: 26px; }
 
-    /* กล่องของขวัญธีมขนมชั้น (เอาสีเหลืองออก) */
+    /* กล่องของขวัญธีมขนมชั้น + ริบบิ้นเหลืองตรงเป๊ะ */
     .gift-container {
       cursor: pointer;
       display: inline-block;
@@ -41,10 +41,37 @@
         #66bb6a 20px,
         #66bb6a 40px
       );
-      border-radius: 12px;
+      border-radius: 0 0 12px 12px;
       position: relative;
       box-shadow: 0 12px 25px rgba(46, 125, 50, 0.2);
       margin: 0 auto;
+      overflow: hidden; /* บังคับไม่ให้ริบบิ้นยื่นออกนอกตัวกล่อง */
+    }
+
+    /* ริบบิ้นแนวตั้งตัวกล่อง */
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 100%;
+      background: #ffd700;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    /* ริบบิ้นแนวนอนตัวกล่อง */
+    .gift-box::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 26px;
+      background: #ffd700;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 1;
     }
 
     .gift-lid {
@@ -58,6 +85,19 @@
       z-index: 2;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    /* ริบบิ้นบนฝา */
+    .gift-lid::before {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 100%;
+      background: #ffd700;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .gift-container.open .gift-lid { transform: translateY(-130px) rotate(-20deg); opacity: 0; }
@@ -113,3 +153,4 @@
   </script>
 </body>
 </html>
+
