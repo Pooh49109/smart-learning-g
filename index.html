@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary! ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #ffe6eb 0%, #def3f8 100%);
+      font-family: 'Tahoma', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+    .container {
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4b72;
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    /* Gift Box Styling */
+    .gift-container {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .gift-container:hover {
+      transform: scale(1.05);
+    }
+    .gift-box {
+      width: 140px;
+      height: 120px;
+      background: #ff5e7e;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      margin: 40px auto 0;
+    }
+    .gift-box::before { /* Vertical Ribbon */
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 100%;
+      background: #ffd700;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .gift-box::after { /* Horizontal Ribbon */
+      content: '';
+      position: absolute;
+      height: 25px;
+      width: 100%;
+      background: #ffd700;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .gift-lid {
+      width: 156px;
+      height: 35px;
+      background: #ff4769;
+      border-radius: 8px;
+      position: absolute;
+      top: -30px;
+      left: -8px;
+      z-index: 2;
+      transition: all 0.6s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .gift-lid::before {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 100%;
+      background: #ffd700;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* Lid open animation */
+    .gift-container.open .gift-lid {
+      transform: translateY(-120px) rotate(-15deg);
+      opacity: 0;
+    }
+    /* Letter Card */
+    .card {
+      background: #ffffff;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      margin: 20px auto 0;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+      position: relative;
+      border: 2px dashed #ffb6c1;
+    }
+    .card.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+      white-space: pre-line;
+      text-align: left;
+    }
+    .heart-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="title">มีของขวัญมาให้ ลองกดเปิดดูสิครับ 🎁</h1>
+    
+    <div class="gift-container" id="gift" onclick="openGift()">
+      <div class="gift-lid"></div>
+      <div class="gift-box"></div>
+    </div>
+
+    <div class="card" id="letterCard">
+      <div class="heart-icon">💖</div>
+      <p id="letterContent">
+        (ตรงนี้จะเป็นข้อความจดหมายของคุณครับ เดี๋ยวคุณพิมพ์ข้อความส่งมาให้ผม แล้วผมจะช่วยเอามาใส่ให้อย่างสวยงามเลยครับ!)
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function openGift() {
+      const gift = document.getElementById('gift');
+      const card = document.getElementById('letterCard');
+      const title = document.getElementById('title');
+
+      gift.classList.add('open');
+      
+      setTimeout(() => {
+        gift.style.display = 'none';
+        title.innerText = 'Happy Anniversary! 🎉';
+        card.classList.add('show');
+      }, 600);
+    }
+  </script>
+</body>
+</html>
