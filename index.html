@@ -8,7 +8,8 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: linear-gradient(135deg, #ffe6eb 0%, #def3f8 100%);
+      /* ปรับสีพื้นหลังให้เข้ากับธีมขนมชั้น */
+      background: linear-gradient(135deg, #e8f5e9 0%, #fffde7 100%);
       font-family: 'Tahoma', sans-serif;
       min-height: 100vh;
       display: flex;
@@ -18,9 +19,9 @@
       padding: 20px 10px;
     }
     .container { text-align: center; width: 100%; max-width: 450px; }
-    h1 { color: #ff4b72; margin-bottom: 20px; font-size: 26px; }
+    h1 { color: #2e7d32; margin-bottom: 20px; font-size: 26px; }
 
-    /* ปรับปรุงโครงสร้างให้ฝากล่องปิดสนิท */
+    /* กล่องของขวัญธีมขนมชั้น */
     .gift-container {
       cursor: pointer;
       display: inline-block;
@@ -33,11 +34,18 @@
     .gift-box {
       width: 140px;
       height: 120px;
-      background: #ff5e7e;
+      /* สร้างลายชั้นขนมชั้นด้วย linear-gradient */
+      background: repeating-linear-gradient(
+        to bottom,
+        #a5d6a7,
+        #a5d6a7 20px,
+        #66bb6a 20px,
+        #66bb6a 40px
+      );
       border-radius: 12px;
       position: relative;
-      box-shadow: 0 12px 25px rgba(255, 75, 114, 0.3);
-      margin: 0 auto; /* เอา margin-top ออกเพื่อให้ lid วางสนิท */
+      box-shadow: 0 12px 25px rgba(46, 125, 50, 0.2);
+      margin: 0 auto;
     }
 
     .gift-box::before, .gift-box::after { content: ''; position: absolute; background: #ffd700; }
@@ -47,10 +55,10 @@
     .gift-lid {
       width: 156px;
       height: 35px;
-      background: #ff4769;
+      background: #388e3c; /* เขียวเข้มขึ้นตรงฝา */
       border-radius: 8px;
       position: absolute;
-      top: -30px; /* ปรับให้พอดีกับด้านบนของกล่อง */
+      top: -30px;
       left: -8px;
       z-index: 2;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -65,12 +73,12 @@
     
     .card {
       background: #ffffff; width: 100%; padding: 30px 25px; border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(255, 105, 135, 0.2);
+      box-shadow: 0 15px 35px rgba(56, 142, 60, 0.2);
       margin-top: 30px; display: none; opacity: 0; transform: translateY(30px);
-      transition: all 0.8s ease; border: 2px dashed #ffb6c1;
+      transition: all 0.8s ease; border: 2px dashed #a5d6a7;
     }
     .card.show { display: block; opacity: 1; transform: translateY(0); }
-    .card p { color: #4a4a4a; line-height: 1.8; font-size: 16px; white-space: pre-line; text-align: left; }
+    .card p { color: #2e7d32; line-height: 1.8; font-size: 16px; white-space: pre-line; text-align: left; }
     .heart-icon { font-size: 36px; margin-bottom: 15px; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
   </style>
@@ -107,10 +115,11 @@
       setTimeout(() => {
         gift.style.display = 'none';
         title.innerText = 'Happy 4th Anniversary! 🎉';
-        card.classList.add('show');
+        card.classList.show = true;
+        card.style.display = 'block';
+        setTimeout(() => card.classList.add('show'), 50);
       }, 600);
     }
   </script>
 </body>
 </html>
-
